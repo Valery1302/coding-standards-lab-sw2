@@ -1,0 +1,2 @@
+************* Module student
+student.py:2:1: E0001: Parsing failed: 'expected an indented block after class definition on line 1 (student, line 2)' (syntax-error)
