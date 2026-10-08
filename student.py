@@ -1,10 +1,17 @@
+"""Student Grade Management System module.
+
+This module provides the Student class to manage student records,
+grades, averages, letter grade assignment, pass/fail status, and honor roll status.
+"""
 
 from typing import List, Union
 
 
 class Student:
+    """Represents a student with grades, academic status, and reporting features."""
 
     def __init__(self, student_id: str, name: str) -> None:
+        """Initialize a new Student instance with ID and name validation."""
         if not isinstance(student_id, str) or not student_id.strip():
             raise ValueError("Error: Student ID must be a non-empty string.")
         if not isinstance(name, str) or not name.strip():
@@ -15,6 +22,7 @@ class Student:
         self.grades: List[float] = []
 
     def add_grade(self, grade: Union[int, float]) -> bool:
+        """Add a numeric grade within the 0 to 100 range."""
         if not isinstance(grade, (int, float)) or isinstance(grade, bool):
             print(f"[{self.name}] Error: Grade '{grade}' must be a numeric value.")
             return False
@@ -30,11 +38,13 @@ class Student:
         return True
 
     def calculate_average(self) -> float:
+        """Calculate and return the average of all grades."""
         if not self.grades:
             return 0.0
         return sum(self.grades) / len(self.grades)
 
     def get_letter_grade(self) -> str:
+        """Determine the letter grade based on average score."""
         avg = self.calculate_average()
         if avg >= 90:
             return "A"
@@ -47,12 +57,15 @@ class Student:
         return "F"
 
     def is_passed(self) -> bool:
+        """Check if the student has passed (average >= 60)."""
         return self.calculate_average() >= 60.0
 
     def is_honor_roll(self) -> bool:
+        """Check if the student qualifies for the honor roll (average >= 90)."""
         return self.calculate_average() >= 90.0
 
     def remove_grade_by_index(self, index: int) -> bool:
+        """Remove a grade by its zero-based index."""
         if not isinstance(index, int) or isinstance(index, bool):
             print(f"[{self.name}] Error: Index '{index}' must be an integer.")
             return False
@@ -68,6 +81,7 @@ class Student:
         return False
 
     def remove_grade_by_value(self, value: Union[int, float]) -> bool:
+        """Remove the first occurrence of a grade matching the given value."""
         if not isinstance(value, (int, float)) or isinstance(value, bool):
             print(f"[{self.name}] Error: Value '{value}' must be numeric.")
             return False
@@ -82,6 +96,7 @@ class Student:
         return False
 
     def generate_report(self) -> str:
+        """Generate and return a formatted summary report for the student."""
         avg = self.calculate_average()
         letter = self.get_letter_grade()
         status = "Passed" if self.is_passed() else "Failed"
@@ -105,6 +120,7 @@ class Student:
 
 
 def main() -> None:
+    """Main function demonstrating all functional requirements."""
     print("--- DEMO 1: Creating Student Records ---")
     try:
         student1 = Student("20261001", "Valeria Gutiérrez")
@@ -146,7 +162,5 @@ def main() -> None:
     student1.generate_report()
     print()
     student2.generate_report()
-
-
 if __name__ == "__main__":
     main()
